@@ -11,7 +11,13 @@ export default defineConfig({
   clean: true,
   sourcemap: true,
   treeshake: true,
-  external: ["react", "react-dom", "@solana/wallet-adapter-react", "@solana/web3.js"],
+  external: [
+    "react",
+    "react-dom",
+    "@relai-fi/subscriptions",
+    "@solana/wallet-adapter-react",
+    "@solana/web3.js",
+  ],
   // Ship the stylesheet verbatim at dist/styles.css (consumers import it explicitly).
   onSuccess: async () => {
     copyFileSync("src/styles.css", "dist/styles.css");

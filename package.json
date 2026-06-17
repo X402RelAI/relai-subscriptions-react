@@ -44,6 +44,9 @@
   "homepage": "https://relai.fi/documentation/subscriptions",
   "license": "MIT",
   "engines": { "node": ">=18" },
+  "dependencies": {
+    "@relai-fi/subscriptions": "^0.1.0"
+  },
   "peerDependencies": {
     "react": ">=18",
     "react-dom": ">=18",
