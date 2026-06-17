@@ -42,6 +42,32 @@ body {
 .demo-section {
   padding: 56px 24px;
 }
+.demo-live-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+.demo-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 1040px;
+  margin: 8px auto -8px;
+  padding: 0 24px;
+  color: #5b6373;
+  font-size: 12px;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+.demo-divider::before,
+.demo-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #1c2030;
+}
 .demo-section__inner {
   max-width: 1040px;
   margin: 0 auto;

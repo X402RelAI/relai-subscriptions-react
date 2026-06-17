@@ -1,9 +1,12 @@
 # Example — @relai-fi/subscriptions-react
 
-A minimal Vite + React app that renders one `<PricingTable>` in several styles. It runs
-**fully offline** — a mock client and in-memory plan data stand in for the RelAI API and a
-wallet, so clicking **Subscribe** drives the real button state machine
-(Subscribe → Confirm in wallet… → Activating… → Subscribed) with nothing to set up.
+A minimal Vite + React app with two parts:
+
+1. **Live** (top) — a real `<PricingTable>` wired to a real plan and a real wallet
+   (`@solana/wallet-adapter`). Connect a wallet and clicking **Subscribe** signs and sends
+   real transactions against the RelAI API.
+2. **Style presets** (below) — the same component in several looks, driven by a **mock
+   client** so it runs fully offline (no backend, no wallet) for previewing styles.
 
 ## Run
 
@@ -12,13 +15,27 @@ wallet, so clicking **Subscribe** drives the real button state machine
 npm install && npm run build
 
 cd examples
+cp .env.example .env     # then fill it in (see below)
 npm install
-npm run dev      # open the printed localhost URL
+npm run dev              # open the printed localhost URL
 ```
 
-## What it shows
+## Configure the live section (`.env`)
 
-`src/themes.ts` defines the presets, each a section in `src/App.tsx`:
+`.env` is **gitignored** — never commit real values. Copy `.env.example` and set:
+
+| Var | What |
+|---|---|
+| `VITE_RELAI_PLAN_ID` | The plan to charge from — the id after `?plan=` in your subscribe link. |
+| `VITE_RELAI_API_URL` | RelAI API base (default `https://api.relai.fi`). Public endpoints only — no key. |
+| `VITE_SOLANA_RPC` | Solana RPC for the connected wallet. **Must match the plan's network** (devnet vs mainnet). |
+
+The defaults in `src/config.ts` let it run before you create `.env`. Make sure your wallet
+is on the same network as the plan, with a little SOL for the first (authority-init) signature.
+
+## Style presets
+
+`src/themes.ts` defines them, each a section in `src/App.tsx`:
 
 | Preset | How it's themed |
 |---|---|
@@ -29,21 +46,9 @@ npm run dev      # open the printed localhost URL
 | Rounded / playful | `theme={{ primary: "#db2777", radius: "24px" }}` |
 | Styled via CSS | no prop — overrides `--relai-*` on a wrapper class (`.demo-amber` in `example.css`) |
 
-## Make it real
+## How the live wiring works
 
-Swap the mock for the live integration:
-
-```tsx
-// remove createMockClient / demoSignAndSend / DEMO_WALLET
-import { useRelaiSignAndSend, useRelaiWallet } from "@relai-fi/subscriptions-react/wallet";
-
-<PricingTable
-  planIds={["pl_basic", "pl_pro", "pl_scale"]}  // your real plan ids
-  highlightPlanId="pl_pro"
-  wallet={useRelaiWallet()}
-  signAndSend={useRelaiSignAndSend()}
-  cards={CARD_CONFIG}
-/>
-```
-
-(That path needs a `@solana/wallet-adapter` `WalletProvider` above the table.)
+`src/Providers.tsx` mounts `ConnectionProvider` + `WalletProvider` + `WalletModalProvider`
+(wallet-standard wallets auto-register). `src/LiveDemo.tsx` reads the connected wallet via
+`useRelaiWallet()` / `useRelaiSignAndSend()` from `@relai-fi/subscriptions-react/wallet` and
+passes them, plus a live `createRelaiClient({ baseUrl })`, to `<PricingTable planId={…} />`.

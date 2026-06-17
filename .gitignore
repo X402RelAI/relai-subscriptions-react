@@ -3,3 +3,8 @@ dist
 *.log
 .DS_Store
 coverage
+
+# Local env — never commit real values (keep .env.example tracked)
+.env
+.env.local
+.env.*.local
