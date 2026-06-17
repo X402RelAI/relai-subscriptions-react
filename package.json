@@ -45,6 +45,7 @@
     "drop-in"
   ],
   "homepage": "https://relai.fi/documentation/subscriptions",
+  "publishConfig": { "access": "public" },
   "license": "MIT",
   "engines": { "node": ">=18" },
   "dependencies": {
