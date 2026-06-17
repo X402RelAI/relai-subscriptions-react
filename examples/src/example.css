@@ -1,5 +1,5 @@
-/* Example-app page chrome only. The pricing cards themselves are styled by the
-   package stylesheet (@relai-fi/subscriptions-react/styles.css). */
+/* Example-app page chrome only. The card itself is styled by the package
+   stylesheet (@relai-fi/subscriptions-react/styles.css). */
 
 * {
   box-sizing: border-box;
@@ -11,102 +11,52 @@ body {
   color: #e7e8ee;
 }
 
-.demo-hero {
-  max-width: 880px;
-  margin: 0 auto;
-  padding: 64px 24px 40px;
-  text-align: center;
+.live {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
 }
-.demo-hero h1 {
-  margin: 0 0 12px;
-  font-size: 32px;
+.live__inner {
+  width: 100%;
+  max-width: 420px;
+}
+.live__head {
+  text-align: center;
+  margin-bottom: 28px;
+}
+.live__head h1 {
+  margin: 0 0 8px;
+  font-size: 26px;
   font-weight: 800;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
+  color: #f4f4f6;
 }
-.demo-hero p {
-  margin: 0 auto;
-  max-width: 640px;
-  font-size: 15px;
-  line-height: 1.55;
-  color: #9aa0ae;
-}
-.demo-hero code,
-.demo-foot code {
-  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
-  font-size: 0.9em;
-  background: rgba(255, 255, 255, 0.08);
-  padding: 1px 6px;
-  border-radius: 6px;
-}
-
-.demo-section {
-  padding: 56px 24px;
-}
-.demo-live-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-  margin-bottom: 28px;
-}
-.demo-divider {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  max-width: 1040px;
-  margin: 8px auto -8px;
-  padding: 0 24px;
-  color: #5b6373;
-  font-size: 12px;
-  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
-}
-.demo-divider::before,
-.demo-divider::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: #1c2030;
-}
-.demo-section__inner {
-  max-width: 1040px;
-  margin: 0 auto;
-}
-.demo-head {
-  margin-bottom: 28px;
-}
-.demo-head__title {
-  margin: 0 0 4px;
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-}
-.demo-head__note {
+.live__head p {
   margin: 0;
-  font-size: 13px;
-  opacity: 0.7;
-  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
-}
-
-.demo-foot {
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 56px 24px 80px;
-  text-align: center;
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: 12px;
   color: #9aa0ae;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  word-break: break-all;
+}
+.live__head code {
+  color: #c4b5fd;
 }
 
-/* Styling via the stylesheet instead of the `theme` prop: override --relai-* on a
-   wrapper class. The "Styled via CSS" preset wraps its table in .demo-amber. */
-.demo-amber .relai-root {
-  --relai-primary: #f59e0b;
-  --relai-primary-hover: #d97706;
-  --relai-primary-fg: #1a1205;
-  --relai-card: #221708;
-  --relai-fg: #fde68a;
-  --relai-muted-fg: #b9883f;
-  --relai-border: #3a2a0e;
-  --relai-radius: 14px;
+.live__card {
+  width: 100%;
+}
+.live__meta {
+  margin: 14px 0 0;
+  font-size: 12px;
+  color: #9aa0ae;
+  text-align: center;
+}
+.live__error {
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: #f87171;
+  text-align: center;
+  word-break: break-word;
 }
