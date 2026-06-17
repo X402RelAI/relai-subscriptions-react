@@ -1,0 +1,67 @@
+{
+  "name": "@relai-fi/subscriptions-react",
+  "version": "0.1.0",
+  "description": "Drop-in React UI for RelAI subscriptions — a Stripe-style pricing table and subscribe button for recurring USDC billing on Solana. Wallet-agnostic, themeable, no API key in the browser.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": ["*.css"],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./wallet": {
+      "types": "./dist/wallet.d.ts",
+      "import": "./dist/wallet.js",
+      "require": "./dist/wallet.cjs"
+    },
+    "./styles.css": "./dist/styles.css"
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "relai",
+    "solana",
+    "subscriptions",
+    "recurring",
+    "usdc",
+    "stablecoin",
+    "payments",
+    "react",
+    "pricing-table",
+    "pricing",
+    "ui",
+    "drop-in"
+  ],
+  "homepage": "https://relai.fi/documentation/subscriptions",
+  "license": "MIT",
+  "engines": { "node": ">=18" },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18",
+    "@solana/wallet-adapter-react": ">=0.15",
+    "@solana/web3.js": "^1.91.0"
+  },
+  "peerDependenciesMeta": {
+    "@solana/wallet-adapter-react": { "optional": true },
+    "@solana/web3.js": { "optional": true }
+  },
+  "devDependencies": {
+    "@solana/wallet-adapter-react": "^0.15.35",
+    "@solana/web3.js": "^1.95.3",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.0"
+  }
+}

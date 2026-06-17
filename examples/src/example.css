@@ -1,0 +1,86 @@
+/* Example-app page chrome only. The pricing cards themselves are styled by the
+   package stylesheet (@relai-fi/subscriptions-react/styles.css). */
+
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: #0b0d14;
+  color: #e7e8ee;
+}
+
+.demo-hero {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 64px 24px 40px;
+  text-align: center;
+}
+.demo-hero h1 {
+  margin: 0 0 12px;
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.demo-hero p {
+  margin: 0 auto;
+  max-width: 640px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: #9aa0ae;
+}
+.demo-hero code,
+.demo-foot code {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 0.9em;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 1px 6px;
+  border-radius: 6px;
+}
+
+.demo-section {
+  padding: 56px 24px;
+}
+.demo-section__inner {
+  max-width: 1040px;
+  margin: 0 auto;
+}
+.demo-head {
+  margin-bottom: 28px;
+}
+.demo-head__title {
+  margin: 0 0 4px;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.demo-head__note {
+  margin: 0;
+  font-size: 13px;
+  opacity: 0.7;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+
+.demo-foot {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 56px 24px 80px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #9aa0ae;
+}
+
+/* Styling via the stylesheet instead of the `theme` prop: override --relai-* on a
+   wrapper class. The "Styled via CSS" preset wraps its table in .demo-amber. */
+.demo-amber .relai-root {
+  --relai-primary: #f59e0b;
+  --relai-primary-hover: #d97706;
+  --relai-primary-fg: #1a1205;
+  --relai-card: #221708;
+  --relai-fg: #fde68a;
+  --relai-muted-fg: #b9883f;
+  --relai-border: #3a2a0e;
+  --relai-radius: 14px;
+}

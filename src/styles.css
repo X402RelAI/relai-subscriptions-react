@@ -1,0 +1,214 @@
+/* @relai-fi/subscriptions-react — drop-in styles.
+   Theme by overriding the --relai-* variables (or pass the `theme` prop). */
+
+.relai-root {
+  /* Brand palette (electric violet) — override via the `theme` prop. */
+  --relai-primary: #7c3aed;
+  --relai-primary-hover: #6d28d9;
+  --relai-primary-fg: #ffffff;
+  --relai-bg: transparent;
+  --relai-card: #ffffff;
+  --relai-fg: #0c0e16;
+  --relai-muted-fg: #6b7280;
+  --relai-border: #e7e8ee;
+  --relai-success: #10b981;
+  --relai-danger: #ef4444;
+  --relai-radius: 16px;
+
+  font-family:
+    "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  color: var(--relai-fg);
+  background: var(--relai-bg);
+  -webkit-font-smoothing: antialiased;
+}
+.relai-root *,
+.relai-root *::before,
+.relai-root *::after {
+  box-sizing: border-box;
+}
+
+/* ── Table grid ─────────────────────────────────────────────────────────── */
+.relai-table {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  align-items: stretch;
+}
+
+/* ── Card ───────────────────────────────────────────────────────────────── */
+.relai-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--relai-card);
+  border: 1px solid var(--relai-border);
+  border-radius: var(--relai-radius);
+  padding: 28px 24px;
+  box-shadow: 0 1px 2px rgba(12, 14, 22, 0.04);
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+.relai-card--highlight {
+  border-color: color-mix(in srgb, var(--relai-primary) 55%, var(--relai-border));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--relai-primary) 35%, transparent),
+    0 12px 32px color-mix(in srgb, var(--relai-primary) 16%, transparent);
+}
+
+.relai-badge {
+  position: absolute;
+  top: -11px;
+  left: 24px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--relai-primary-fg);
+  background: var(--relai-primary);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.relai-card__head {
+  margin-bottom: 18px;
+}
+.relai-card__name {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.relai-card__desc {
+  margin: 6px 0 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--relai-muted-fg);
+}
+
+/* ── Price ──────────────────────────────────────────────────────────────── */
+.relai-price {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.relai-price__amount {
+  font-size: 44px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.relai-price__unit {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+.relai-price__ticker {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--relai-muted-fg);
+}
+.relai-price__period {
+  font-size: 13px;
+  color: var(--relai-muted-fg);
+}
+.relai-price__caption {
+  margin: 8px 0 20px;
+  font-size: 13px;
+  color: var(--relai-muted-fg);
+}
+
+/* ── Button ─────────────────────────────────────────────────────────────── */
+.relai-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  padding: 12px 16px;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--relai-primary-fg);
+  background: var(--relai-primary);
+  border: 1px solid transparent;
+  border-radius: calc(var(--relai-radius) - 4px);
+  cursor: pointer;
+  transition: background 0.15s ease, opacity 0.15s ease, color 0.15s ease;
+}
+.relai-btn:hover:not(:disabled) {
+  background: var(--relai-primary-hover);
+}
+.relai-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--relai-primary) 35%, transparent);
+}
+.relai-btn:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+.relai-btn[data-state="done"]:disabled {
+  opacity: 1;
+  color: var(--relai-success);
+  background: color-mix(in srgb, var(--relai-success) 12%, transparent);
+  border-color: color-mix(in srgb, var(--relai-success) 35%, transparent);
+}
+.relai-btn[data-state="error"] {
+  background: var(--relai-danger);
+}
+
+.relai-spinner {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--relai-primary-fg) 40%, transparent);
+  border-top-color: var(--relai-primary-fg);
+  animation: relai-spin 0.6s linear infinite;
+}
+@keyframes relai-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .relai-spinner {
+    animation-duration: 1.4s;
+  }
+}
+
+/* ── Features ───────────────────────────────────────────────────────────── */
+.relai-features {
+  list-style: none;
+  margin: 22px 0 0;
+  padding: 18px 0 0;
+  border-top: 1px solid var(--relai-border);
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+.relai-features__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.relai-check {
+  flex: none;
+  margin-top: 1px;
+  color: var(--relai-success);
+}
+
+/* ── States ─────────────────────────────────────────────────────────────── */
+.relai-state {
+  padding: 28px 24px;
+  border: 1px dashed var(--relai-border);
+  border-radius: var(--relai-radius);
+  font-size: 14px;
+  color: var(--relai-muted-fg);
+  text-align: center;
+}
+.relai-state--error {
+  color: var(--relai-danger);
+  border-color: color-mix(in srgb, var(--relai-danger) 40%, var(--relai-border));
+}
