@@ -12,6 +12,7 @@ export {
   usePlanMeta,
   useSubscriptionStatus,
   useSubscribe,
+  useCancel,
 } from "./hooks.js";
 export type {
   RelaiResolved,
@@ -21,6 +22,9 @@ export type {
   UseSubscribeOptions,
   UseSubscribeResult,
   SubscribeState,
+  UseCancelOptions,
+  UseCancelResult,
+  CancelState,
 } from "./hooks.js";
 
 export { PricingTable } from "./components/PricingTable.js";

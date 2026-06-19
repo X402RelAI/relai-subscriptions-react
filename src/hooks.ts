@@ -195,3 +195,80 @@ export function useSubscribe(opts: UseSubscribeOptions): UseSubscribeResult {
   const busy = state === "preparing" || state === "signing" || state === "confirming";
   return { subscribe, state, error, subscription, busy, reset };
 }
+
+export type CancelState = "idle" | "preparing" | "signing" | "confirming" | "done" | "error";
+
+export interface UseCancelOptions {
+  /**
+   * Fetch the unsigned cancel transaction. Building it needs the merchant API key,
+   * so this must hit YOUR backend (which proxies RelAI's authenticated cancel) —
+   * the key never touches the browser.
+   */
+  prepareCancel: () => Promise<{ wireTransaction: string }>;
+  /** Confirm the cancel after broadcast (again via your backend). */
+  confirmCancel: (signature: string) => Promise<unknown>;
+  /** Subscriber's signer (defaults to the provider's signAndSend). */
+  signAndSend?: SignAndSend;
+  onCanceled?: () => void;
+  onError?: (err: Error) => void;
+}
+
+export interface UseCancelResult {
+  cancel: () => Promise<boolean>;
+  state: CancelState;
+  error?: Error;
+  busy: boolean;
+  reset: () => void;
+}
+
+/**
+ * Orchestrates the subscriber-signed cancel: prepareCancel → sign → confirmCancel.
+ * Backend-agnostic — you supply prepare/confirm (pointing at your merchant backend),
+ * the hook drives the wallet signature and the state transitions.
+ */
+export function useCancel(opts: UseCancelOptions): UseCancelResult {
+  const { signAndSend } = useRelaiResolved({ signAndSend: opts.signAndSend });
+  const [state, setState] = useState<CancelState>("idle");
+  const [error, setError] = useState<Error | undefined>();
+  const running = useRef(false);
+
+  const reset = useCallback(() => {
+    setState("idle");
+    setError(undefined);
+  }, []);
+
+  const cancel = useCallback(async (): Promise<boolean> => {
+    if (running.current) return false;
+    if (!signAndSend) {
+      const err = new Error("No signAndSend — pass one (see @relai-fi/subscriptions-react/wallet).");
+      setError(err);
+      setState("error");
+      opts.onError?.(err);
+      return false;
+    }
+    running.current = true;
+    setError(undefined);
+    try {
+      setState("preparing");
+      const { wireTransaction } = await opts.prepareCancel();
+      setState("signing");
+      const sig = await signAndSend(wireTransaction);
+      setState("confirming");
+      await opts.confirmCancel(sig);
+      setState("done");
+      opts.onCanceled?.();
+      return true;
+    } catch (e) {
+      const err = e instanceof Error ? e : new Error(String(e));
+      setError(err);
+      setState("error");
+      opts.onError?.(err);
+      return false;
+    } finally {
+      running.current = false;
+    }
+  }, [signAndSend, opts]);
+
+  const busy = state === "preparing" || state === "signing" || state === "confirming";
+  return { cancel, state, error, busy, reset };
+}
