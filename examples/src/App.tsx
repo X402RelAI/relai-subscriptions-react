@@ -1,12 +1,8 @@
-import { LiveDemo } from "./LiveDemo";
+import { Portal } from "./Portal";
 
-// Live example: a real plan + a real wallet, configured from .env (see config.ts).
-// Clicking Subscribe prompts the wallet connection if needed, then runs the on-chain
-// subscribe (prepare → sign → confirm).
+// A (functionally real) demo merchant portal: 3 pricing tiers, a real subscribe
+// flow, a real backend-proxied cancel, and a live webhook-events feed. Config is
+// in .env (see config.ts); the cancel + webhook feed need the demo backend (server/).
 export default function App() {
-  return (
-    <main className="demo">
-      <LiveDemo />
-    </main>
-  );
+  return <Portal />;
 }

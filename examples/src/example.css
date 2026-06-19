@@ -1,4 +1,4 @@
-/* Example-app page chrome only. The card itself is styled by the package
+/* Portal page chrome. The pricing cards themselves are styled by the package
    stylesheet (@relai-fi/subscriptions-react/styles.css). */
 
 * {
@@ -11,52 +11,138 @@ body {
   color: #e7e8ee;
 }
 
-.live {
-  min-height: 100vh;
+.portal {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+.portal__head {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 48px 24px;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
 }
-.live__inner {
-  width: 100%;
-  max-width: 420px;
-}
-.live__head {
-  text-align: center;
-  margin-bottom: 28px;
-}
-.live__head h1 {
-  margin: 0 0 8px;
+.portal__head h1 {
+  margin: 0;
   font-size: 26px;
   font-weight: 800;
   letter-spacing: -0.02em;
   color: #f4f4f6;
 }
-.live__head p {
-  margin: 0;
-  font-size: 12px;
+.portal__sub {
+  margin: 6px 0 0;
+  font-size: 14px;
   color: #9aa0ae;
-  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
-  word-break: break-all;
 }
-.live__head code {
+.portal__tiers {
+  align-items: stretch;
+}
+
+/* ── Panels (your subscription, webhook feed) ─────────────────────────────── */
+.panel {
+  margin-top: 28px;
+  padding: 22px 24px;
+  background: #11121a;
+  border: 1px solid #20232f;
+  border-radius: 16px;
+}
+.panel__title {
+  margin: 0 0 14px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #f4f4f6;
+}
+.panel__muted {
+  margin: 0;
+  font-size: 14px;
+  color: #9aa0ae;
+}
+.panel__muted code {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 0.88em;
+  background: rgba(255, 255, 255, 0.07);
+  padding: 1px 6px;
+  border-radius: 6px;
+}
+.panel__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.panel__cancel {
+  width: auto;
+  background: transparent;
+  border: 1px solid #3a3d4d;
+  color: #e7e8ee;
+}
+.panel__cancel:hover:not(:disabled) {
+  background: rgba(248, 113, 113, 0.12);
+  border-color: rgba(248, 113, 113, 0.5);
+  color: #fca5a5;
+}
+.panel__error {
+  margin: 12px 0 0;
+  font-size: 13px;
+  color: #f87171;
+}
+
+/* ── Status / event badges ────────────────────────────────────────────────── */
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #c7cbd6;
+}
+.badge--active,
+.badge--charged {
+  background: rgba(16, 185, 129, 0.16);
+  color: #6ee7b7;
+}
+.badge--past_due,
+.badge--payment_failed {
+  background: rgba(245, 158, 11, 0.16);
+  color: #fcd34d;
+}
+.badge--canceled,
+.badge--unpaid {
+  background: rgba(248, 113, 113, 0.16);
+  color: #fca5a5;
+}
+.badge--created {
+  background: rgba(167, 139, 250, 0.18);
   color: #c4b5fd;
 }
 
-.live__card {
-  width: 100%;
+/* ── Webhook feed ─────────────────────────────────────────────────────────── */
+.feed {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
-.live__meta {
-  margin: 14px 0 0;
-  font-size: 12px;
-  color: #9aa0ae;
-  text-align: center;
-}
-.live__error {
-  margin: 10px 0 0;
+.feed__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   font-size: 13px;
-  color: #f87171;
-  text-align: center;
-  word-break: break-word;
+}
+.feed__wallet {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color: #9aa0ae;
+}
+.feed__time {
+  margin-left: auto;
+  color: #6b7280;
+  font-size: 12px;
 }
